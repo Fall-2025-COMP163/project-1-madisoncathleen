@@ -122,12 +122,39 @@ def level_up(character):
     character["strength"] = strength
     character["magic"] = magic
     character["health"] = health
+
 if __name__ == "__main__":
-    print("=== CHARACTER CREATOR ===")
-    print("Test your functions here!")
-    
-    # Example usage:
-    # char = create_character("TestHero", "Warrior")
-    # display_character(char)
-    # save_character(char, "my_character.txt")
-    # loaded = load_character("my_character.txt")
+    print("GAME SUCCESSFULLY STARTED !")
+    print("➥  WELCOME TO THE CHARACTER CREATOR !")
+    print("TESTING CHARACTER CREATION, SAVING, LOADING, AND LEVELING UP")
+
+charname = input("ENTER CHARACTER NAME: ")
+charclass = input("ENTER CHARACTER CLASS (WARRIOR, MAGE, ROGUE, OR CLERIC): ")
+character = create_character(charname, charclass)
+print("CHARACTER CREATED!")
+print("WOULD YOU LIKE TO SAVE YOUR CHARACTER? (Y/N)")
+if input().strip().lower() == "y":
+    savename = input("ENTER FILENAME TO SAVE CHARACTER: ")
+    if save_character(character, savename):
+        print("CHARACTER SAVED SUCCESSFULLY!")
+    else:
+        print("SAVE FILE NOT CREATED.")
+print("WOULD YOU LIKE TO LOAD A CHARACTER? (Y/N)")
+if input().strip().lower() == "y":
+    loadname = input("ENTER FILENAME TO LOAD CHARACTER: ")
+    loaded_character = load_character(loadname)
+    if loaded_character:
+        character = loaded_character
+        print("CHARACTER LOADED SUCCESSFULLY!")
+    else:
+        print("LOAD FAILED.")
+print("WOULD YOU LIKE TO DISPLAY YOUR CHARACTER'S STATS? (Y/N)")
+if input().strip().lower() == "y":
+    display_character(character)
+print("WOULD YOU LIKE TO LEVEL UP YOUR CHARACTER? (Y/N)")
+if input().strip().lower() == "y":
+    level_up(character)
+    print("CHARACTER LEVELED UP!")
+    display_character(character)
+
+
