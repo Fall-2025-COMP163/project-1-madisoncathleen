@@ -65,14 +65,20 @@ def save_character(character, filename):
         if key not in character:
             return False
 
-    with open(filename, "w") as file:
-        file.write(f"Character Name: {character['name']}\n")
-        file.write(f"Class: {character['class']}\n")
-        file.write(f"Level: {character['level']}\n")
-        file.write(f"Strength: {character['strength']}\n")
-        file.write(f"Magic: {character['magic']}\n")
-        file.write(f"Health: {character['health']}\n")
-        file.write(f"Gold: {character['gold']}\n")
+    # FIX — check if directory exists
+    directory = os.path.dirname(filename)
+    if directory and not os.path.exists(directory):
+        return False
+
+    file = open(filename, "w")
+    file.write(f"Character Name: {character['name']}\n")
+    file.write(f"Class: {character['class']}\n")
+    file.write(f"Level: {character['level']}\n")
+    file.write(f"Strength: {character['strength']}\n")
+    file.write(f"Magic: {character['magic']}\n")
+    file.write(f"Health: {character['health']}\n")
+    file.write(f"Gold: {character['gold']}\n")
+    file.close()
 
     return True
 
