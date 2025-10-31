@@ -105,35 +105,23 @@ def load_character(filename):
 
     return character
 
+
 def display_character(character):
-    """
-    Prints formatted character sheet
-    Returns: None (prints to console)
-    
-    Example output:
-    === CHARACTER SHEET ===
-    Name: Aria
-    Class: Mage
-    Level: 1
-    Strength: 5
-    Magic: 15
-    Health: 80
-    Gold: 100
-    """
-    # TODO: Implement this function
-    pass
+    print(f"╰┈➤ˎˊ˗ {character['name'].upper()}'S STATS !")
+    print(f" Class: {character['class']}")
+    print(f" Level: {character['level']}")
+    print(f" Strength: {character['strength']}")
+    print(f" Magic: {character['magic']}")
+    print(f" Health: {character['health']}")
+    print(f" Gold: {character['gold']}")
+    print("╰┈➤ˎˊ˗ END OF STATS !")
 
 def level_up(character):
-    """
-    Increases character level and recalculates stats
-    Modifies the character dictionary directly
-    Returns: None
-    """
-    # TODO: Implement this function
-    # Remember to recalculate stats for the new level
-    pass
-
-# Main program area (optional - for testing your functions)
+    character["level"] += 1
+    strength, magic, health = calculate_stats(character["class"], character["level"])
+    character["strength"] = strength
+    character["magic"] = magic
+    character["health"] = health
 if __name__ == "__main__":
     print("=== CHARACTER CREATOR ===")
     print("Test your functions here!")
