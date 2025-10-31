@@ -62,31 +62,48 @@ def calculate_stats(character_class, level):
     return (strength, magic, health)
 
 def save_character(character, filename):
-    """
-    Saves character to text file in specific format
-    Returns: True if successful, False if error occurred
-    
-    Required file format:
-    Character Name: [name]
-    Class: [class]
-    Level: [level]
-    Strength: [strength]
-    Magic: [magic]
-    Health: [health]
-    Gold: [gold]
-    """
-    # TODO: Implement this function
-    # Remember to handle file errors gracefully
-    pass
+
+    required_keys = ["name", "class", "level", "strength", "magic", "health", "gold"]
+
+    for key in required_keys:
+        if key not in character:
+            return False
+
+    file = open(filename, "w")
+    file.write(f"Character Name: {character['name']}\n")
+    file.write(f"Class: {character['class']}\n")
+    file.write(f"Level: {character['level']}\n")
+    file.write(f"Strength: {character['strength']}\n")
+    file.write(f"Magic: {character['magic']}\n")
+    file.write(f"Health: {character['health']}\n")
+    file.write(f"Gold: {character['gold']}\n")
+    file.close()
+
+    return True
+
+
 
 def load_character(filename):
-    """
-    Loads character from text file
-    Returns: character dictionary if successful, None if file not found
-    """
-    # TODO: Implement this function
-    # Remember to handle file not found errors
-    pass
+    if not os.path.exists(filename):
+        print("Character save does not exist.")
+        return None
+
+    file = open(filename, "r")
+    lines = file.readlines()
+    file.close()
+
+    character = {}
+
+    for line in lines:
+        parts = line.strip().split(": ")
+        if len(parts) == 2:
+            key, value = parts
+            key = key.lower().replace("character name", "name")
+            if key in ["level", "strength", "magic", "health", "gold"]:
+                value = int(value)
+            character[key] = value
+
+    return character
 
 def display_character(character):
     """
