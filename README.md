@@ -97,3 +97,16 @@ Modifying protected files will result in automatic academic integrity violation
 Implementation (70%): Function correctness, file operations, error handling
 
 Interview (30%): Code explanation and live coding challenge
+
+# ---------------------------------------------------------- CREATORS NOTES ----------------------------------------------------------------
+
+# For the most part, when I was thinking about what kind of concept I wanted this to have I wanted to go with a staple, and what's more staple-y than Dungeons and Dragons? So I think from here on out it'll be based off of a campaign I played in.
+
+As for my stat formulas, I didn't want it to be too basic or too complex, but I think it'll keep everything easy to read and debug, but also not as generic.
+
+I plan on adding unique features in the second project, simply because I'm not sure which direction we'll go, and what creative feature I'd actually use.
+
+Running the code should be easy, it'll allow the user to input their own choices to check for complete compatibility. {Yippee!}
+
+AI helped a bit throughout the code, such as debugging and helping me understand some concepts I needed to brush up on.
+
