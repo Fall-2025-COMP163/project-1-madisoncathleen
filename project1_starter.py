@@ -24,14 +24,13 @@ so he helped a lil bit. heh. (im writing this before i even use AI to help so il
 okay so AI helped in load and save character and to help debug heh. 
 """
 import os
-def create_character(name, character_class):
 
+def create_character(name, character_class):
     character = {"name": name, "class": character_class, "level": 1, "gold": 100}
     strength, magic, health = calculate_stats(character_class, 1)
     character["strength"] = strength
     character["magic"] = magic
     character["health"] = health
-
     return character
 
 def calculate_stats(character_class, level):
@@ -58,42 +57,34 @@ def calculate_stats(character_class, level):
         magic = 0
         health = 50
 
-
     return (strength, magic, health)
 
 def save_character(character, filename):
-
     required_keys = ["name", "class", "level", "strength", "magic", "health", "gold"]
-
     for key in required_keys:
         if key not in character:
             return False
 
-    file = open(filename, "w")
-    file.write(f"Character Name: {character['name']}\n")
-    file.write(f"Class: {character['class']}\n")
-    file.write(f"Level: {character['level']}\n")
-    file.write(f"Strength: {character['strength']}\n")
-    file.write(f"Magic: {character['magic']}\n")
-    file.write(f"Health: {character['health']}\n")
-    file.write(f"Gold: {character['gold']}\n")
-    file.close()
+    with open(filename, "w") as file:
+        file.write(f"Character Name: {character['name']}\n")
+        file.write(f"Class: {character['class']}\n")
+        file.write(f"Level: {character['level']}\n")
+        file.write(f"Strength: {character['strength']}\n")
+        file.write(f"Magic: {character['magic']}\n")
+        file.write(f"Health: {character['health']}\n")
+        file.write(f"Gold: {character['gold']}\n")
 
     return True
-
-
 
 def load_character(filename):
     if not os.path.exists(filename):
         print("Character save does not exist.")
         return None
 
-    file = open(filename, "r")
-    lines = file.readlines()
-    file.close()
+    with open(filename, "r") as file:
+        lines = file.readlines()
 
     character = {}
-
     for line in lines:
         parts = line.strip().split(": ")
         if len(parts) == 2:
@@ -102,9 +93,7 @@ def load_character(filename):
             if key in ["level", "strength", "magic", "health", "gold"]:
                 value = int(value)
             character[key] = value
-
     return character
-
 
 def display_character(character):
     print(f"╰┈➤ˎˊ˗ {character['name'].upper()}'S STATS !")
@@ -128,33 +117,35 @@ if __name__ == "__main__":
     print("➥  WELCOME TO THE CHARACTER CREATOR !")
     print("TESTING CHARACTER CREATION, SAVING, LOADING, AND LEVELING UP")
 
-charname = input("ENTER CHARACTER NAME: ")
-charclass = input("ENTER CHARACTER CLASS (WARRIOR, MAGE, ROGUE, OR CLERIC): ")
-character = create_character(charname, charclass)
-print("CHARACTER CREATED!")
-print("WOULD YOU LIKE TO SAVE YOUR CHARACTER? (Y/N)")
-if input().strip().lower() == "y":
-    savename = input("ENTER FILENAME TO SAVE CHARACTER: ")
-    if save_character(character, savename):
-        print("CHARACTER SAVED SUCCESSFULLY!")
-    else:
-        print("SAVE FILE NOT CREATED.")
-print("WOULD YOU LIKE TO LOAD A CHARACTER? (Y/N)")
-if input().strip().lower() == "y":
-    loadname = input("ENTER FILENAME TO LOAD CHARACTER: ")
-    loaded_character = load_character(loadname)
-    if loaded_character:
-        character = loaded_character
-        print("CHARACTER LOADED SUCCESSFULLY!")
-    else:
-        print("LOAD FAILED.")
-print("WOULD YOU LIKE TO DISPLAY YOUR CHARACTER'S STATS? (Y/N)")
-if input().strip().lower() == "y":
-    display_character(character)
-print("WOULD YOU LIKE TO LEVEL UP YOUR CHARACTER? (Y/N)")
-if input().strip().lower() == "y":
-    level_up(character)
-    print("CHARACTER LEVELED UP!")
-    display_character(character)
+    charname = input("ENTER CHARACTER NAME: ")
+    charclass = input("ENTER CHARACTER CLASS (WARRIOR, MAGE, ROGUE, OR CLERIC): ")
+    character = create_character(charname, charclass)
+    print("CHARACTER CREATED!")
 
+    print("WOULD YOU LIKE TO SAVE YOUR CHARACTER? (Y/N)")
+    if input().strip().lower() == "y":
+        savename = input("ENTER FILENAME TO SAVE CHARACTER: ")
+        if save_character(character, savename):
+            print("CHARACTER SAVED SUCCESSFULLY!")
+        else:
+            print("SAVE FILE NOT CREATED.")
 
+    print("WOULD YOU LIKE TO LOAD A CHARACTER? (Y/N)")
+    if input().strip().lower() == "y":
+        loadname = input("ENTER FILENAME TO LOAD CHARACTER: ")
+        loaded_character = load_character(loadname)
+        if loaded_character:
+            character = loaded_character
+            print("CHARACTER LOADED SUCCESSFULLY!")
+        else:
+            print("LOAD FAILED.")
+
+    print("WOULD YOU LIKE TO DISPLAY YOUR CHARACTER'S STATS? (Y/N)")
+    if input().strip().lower() == "y":
+        display_character(character)
+
+    print("WOULD YOU LIKE TO LEVEL UP YOUR CHARACTER? (Y/N)")
+    if input().strip().lower() == "y":
+        level_up(character)
+        print("CHARACTER LEVELED UP!")
+        display_character(character)
